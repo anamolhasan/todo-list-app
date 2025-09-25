@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {  useDispatch, useSelector } from "react-redux";
-import { addTodo } from "../redux/features/todos/todoSlice";
+import { addTodo, removeTodo } from "../redux/features/todos/todoSlice";
 
 const TodoList = () => {
 
@@ -38,7 +38,7 @@ const TodoList = () => {
             todos.length > 0 ? todos.map((todo) => (
                  <li key={todo.id} className="flex justify-between items-center px-4 py-4 border-b space-x-10">
                 <span>{todo.text}</span>
-                <button className="text-red-500 hover:underline">Remove</button>
+                <button onClick={()=> dispatch(removeTodo(todo.id))} className="text-red-500 hover:underline">Remove</button>
             </li> 
             )) : <div>No todo Items</div>
            } 
