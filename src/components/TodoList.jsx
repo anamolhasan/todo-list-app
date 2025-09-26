@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {  useDispatch, useSelector } from "react-redux";
-import { addTodo, removeTodo } from "../redux/features/todos/todoSlice";
+import { addTodo, removeTodo, toggleTodo } from "../redux/features/todos/todoSlice";
 
 const TodoList = () => {
 
@@ -21,7 +21,7 @@ const TodoList = () => {
         <input
         value={text}
         onChange={(e)=> setText(e.target.value)}
-          className="px-4 py-2 border border-gray-500 rounded text-black placeholder:text-black"
+          className="px-4 py-2 border border-gray-500 rounded text-black dark:text-white placeholder:text-black dark:placeholder:text-white"
           placeholder="Add a todo"
           type="text"
           name=""
@@ -36,9 +36,12 @@ const TodoList = () => {
         <ul className="w-full max-w-md">
            {
             todos.length > 0 ? todos.map((todo) => (
-                 <li key={todo.id} className="flex justify-between items-center px-4 py-4 border-b space-x-10">
-                <span>{todo.text}</span>
+                 <li key={todo.id} className={`flex justify-between items-center px-4 py-4 border-b space-x-10  `}>
+
+                <span onClick={()=>dispatch(toggleTodo(todo.id))} className={`${todo.completed ? 'line-through text-gray-500' : ''}`}>{todo.text}</span>
+
                 <button onClick={()=> dispatch(removeTodo(todo.id))} className="text-red-500 hover:underline">Remove</button>
+                
             </li> 
             )) : <div>No todo Items</div>
            } 
